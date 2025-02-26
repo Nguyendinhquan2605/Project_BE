@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const controllers = require("../../controllers/client/homeController");
 
-router.get("/", async (req, res) => {
-  res.render("client/page/home/index.pug");
-});
+//home route
+router.get("/", controllers.index);
 
 router.get("/abc", async (req, res) => {
   res.send("ok abc");

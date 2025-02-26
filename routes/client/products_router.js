@@ -1,12 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const productControllers = require("../../controllers/client/productController");
 
-router.get("/", async (req, res) => {
-  res.render("client/page/products/index.pug");
-});
+router.get("/", productControllers.index);
 
-router.get("/edit", async (req, res) => {
-  res.send("Edit Products");
-});
+router.get("/edit", productControllers.edit);
 
 module.exports = router;

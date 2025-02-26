@@ -2,10 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const connection = require("./config/database");
 const router = require("./routes/client/index_Routes");
+require("dotenv").config();
 
-const hostname = 3301;
+const hostname = "localhost";
 const app = express();
-const port = 3001;
+const port = process.env.PORT;
 
 //views
 app.set("views", "./views");
