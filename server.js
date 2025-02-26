@@ -21,8 +21,8 @@ const Products = mongoose.model("Product", {
 // Router
 router(app);
 
-//config view
-// app.use(express.static("public"));
+//config static file
+app.use(express.static("public"));
 
 (async () => {
   //test connection
