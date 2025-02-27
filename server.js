@@ -8,15 +8,21 @@ const hostname = "localhost";
 const app = express();
 const port = process.env.PORT;
 
+// const Products = mongoose.model("Product", {
+//   title: String,
+//   description: String,
+//   price: Number,
+//   discoutPercentage: Number,
+//   stock: Number,
+//   thumbnail: String,
+//   status: String,
+//   position: Number,
+//   deleted: Boolean,
+// });
+
 //views
 app.set("views", "./views");
 app.set("view engine", "pug");
-
-const Products = mongoose.model("Product", {
-  title: String,
-  price: Number,
-  thumbnail: String,
-});
 
 // Router
 router(app);
