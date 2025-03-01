@@ -5,6 +5,8 @@ const routerClient = require("./routes/client/index_Routes"); //router client
 const routerAdmin = require("./routes/admin/indexRoute"); //router admin
 require("dotenv").config();
 
+const systemConfig = require("./config/system");
+
 const hostname = "localhost";
 const app = express();
 const port = process.env.PORT;
@@ -24,6 +26,9 @@ const port = process.env.PORT;
 //views
 app.set("views", "./views");
 app.set("view engine", "pug");
+
+//App locals Variables
+// app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
 // Router
 routerClient(app);

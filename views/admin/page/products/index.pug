@@ -1,0 +1,36 @@
+extends ../../layout/default.pug
+
+block main
+  h1 Trang danh sách sản phẩm
+  br
+  table.table.table-hover.table-sm
+    thead
+      tr
+        th STT
+        th Hình Ảnh
+        th Tiêu Đề
+        th Giá
+        th Trạng Thái
+        th Hành Động
+
+    tbody
+      each item,index in Products
+        tr
+          td #{index + 1}
+          td
+            img(
+              src=item.thumbnail  
+              alt=item.title  
+              width="100px"
+              height="auto"
+            )
+          td #{item.title} 
+          td #{item.price}$
+          td 
+            if(item.stock < 20)
+              a(href="#", class="btn btn-danger") Low Stock
+            else 
+              a(href="#", class="btn btn-success") In Stock
+          td
+            button(class="btn btn-warning") Sửa
+            button(class="btn btn-danger") Xóa
