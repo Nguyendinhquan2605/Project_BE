@@ -1,7 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const connection = require("./config/database");
-const router = require("./routes/client/index_Routes");
+const routerClient = require("./routes/client/index_Routes"); //router client
+const routerAdmin = require("./routes/admin/indexRoute"); //router admin
 require("dotenv").config();
 
 const hostname = "localhost";
@@ -25,7 +26,8 @@ app.set("views", "./views");
 app.set("view engine", "pug");
 
 // Router
-router(app);
+routerClient(app);
+routerAdmin(app);
 
 //config static file
 app.use(express.static("public"));
