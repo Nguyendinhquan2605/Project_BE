@@ -27,8 +27,8 @@ const port = process.env.PORT;
 app.set("views", "./views");
 app.set("view engine", "pug");
 
-//App locals Variables
-// app.locals.prefixAdmin = systemConfig.prefixAdmin;
+// App locals Variables
+app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
 // Router
 routerClient(app);

@@ -2,6 +2,14 @@ extends ../../layout/default.pug
 
 block main
   h1 Trang danh sách sản phẩm
+
+  .card.mb-3
+  .card-header Bộ lọc và Tìm kiếm
+  br
+  .card-body
+    button.btn.btn-sm.ml-1.btn-outline-success.active Tất cả
+    button.btn.btn-sm.ml-1.btn-outline-success Hoạt động
+    button.btn.btn-sm.ml-1.btn-outline-success Dừng hoạt động
   br
   table.table.table-hover.table-sm
     thead
@@ -12,6 +20,7 @@ block main
         th Giá
         th Trạng Thái
         th Hành Động
+        th Hàng tồn kho
 
     tbody
       each item,index in Products
@@ -27,10 +36,15 @@ block main
           td #{item.title} 
           td #{item.price}$
           td 
+            if(item.status == "active")
+              a(href="#", class="btn btn-success") Hoạt động
+            else 
+              a(href="#", class="btn btn-danger") Dừng hoạt động
+          td
+            button(class="btn btn-warning") Sửa
+            button(class="btn btn-danger") Xóa
+          td 
             if(item.stock < 20)
               a(href="#", class="btn btn-danger") Low Stock
             else 
               a(href="#", class="btn btn-success") In Stock
-          td
-            button(class="btn btn-warning") Sửa
-            button(class="btn btn-danger") Xóa
