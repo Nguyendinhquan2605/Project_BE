@@ -10,7 +10,7 @@ module.exports.index = async (req, res) => {
       (items.price * (100 - items.discountPercentage)).toFixed(0) / 100;
   });
 
-  console.log(">>>check product: ", product);
+  // console.log(">>>check product: ", product);
 
   res.render("client/page/products/index.pug", {
     pageTitle: "Danh sách sản phẩm",

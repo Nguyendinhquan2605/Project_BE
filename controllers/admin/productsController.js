@@ -47,9 +47,29 @@ module.exports.index = async (req, res) => {
     find.title = regex;
   }
 
-  // console.log(">>>check find: ", req.query);
+  // Pagination
+  let objectPagination = {
+    currentPage: 1,
+    limitItems: 4,
+  };
 
-  const product = await Product.find(find);
+  if (req.query.page) {
+    objectPagination.currentPage = parseInt(req.query.page);
+  }
+
+  objectPagination.skip =
+    (objectPagination.currentPage - 1) * objectPagination.limitItems;
+
+  const countProducts = await Product.countDocuments(find);
+  // console.log(countProducts);
+  const totalsPage = Math.ceil(countProducts / objectPagination.limitItems);
+  // console.log(totalsPage);
+  objectPagination.totalsPage = totalsPage;
+
+  // console.log(">>>check find: ", req.query);
+  const product = await Product.find(find)
+    .limit(objectPagination.limitItems)
+    .skip(objectPagination.skip);
 
   // console.log(">>>check product: ", product);
 
@@ -58,5 +78,6 @@ module.exports.index = async (req, res) => {
     Products: product,
     filterStatus: filterStatus,
     keyword: keyword,
+    pagination: objectPagination,
   });
 };
