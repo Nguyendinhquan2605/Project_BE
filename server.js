@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const connection = require("./config/database");
 const routerClient = require("./routes/client/index_Routes"); //router client
 const routerAdmin = require("./routes/admin/indexRoute"); //router admin
+const methodOverride = require("method-override");
 require("dotenv").config();
 
 const systemConfig = require("./config/system");
@@ -22,6 +23,9 @@ const port = process.env.PORT;
 //   position: Number,
 //   deleted: Boolean,
 // });
+
+//Method-Override
+app.use(methodOverride("_method"));
 
 //views
 app.set("views", "./views");
