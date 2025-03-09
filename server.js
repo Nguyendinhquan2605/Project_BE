@@ -4,6 +4,7 @@ const connection = require("./config/database");
 const routerClient = require("./routes/client/index_Routes"); //router client
 const routerAdmin = require("./routes/admin/indexRoute"); //router admin
 const methodOverride = require("method-override");
+const bodyParser = require("body-parser");
 require("dotenv").config();
 
 const systemConfig = require("./config/system");
@@ -11,6 +12,9 @@ const systemConfig = require("./config/system");
 const hostname = "localhost";
 const app = express();
 const port = process.env.PORT;
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // const Products = mongoose.model("Product", {
 //   title: String,
