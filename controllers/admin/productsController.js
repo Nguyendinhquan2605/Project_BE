@@ -101,3 +101,12 @@ module.exports.changeMulti = async (req, res) => {
   console.log(req.body);
   res.redirect("back");
 };
+
+// [DELETE] /admin/products/delete/:id
+module.exports.deleteItem = async (req, res) => {
+  console.log(req.params);
+  const id = req.params.id;
+
+  await Product.deleteOne({ _id: id });
+  res.redirect("back");
+};
