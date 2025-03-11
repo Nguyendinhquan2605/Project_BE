@@ -1,16 +1,26 @@
 const mongoose = require("mongoose");
+const mongoose_delete = require("mongoose-delete");
 
-const productsSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  price: Number,
-  discountPercentage: Number, // Sửa lỗi chính tả "discoutPercentage"
-  stock: Number,
-  thumbnail: String,
-  status: String,
-  position: Number,
-  deleted: Boolean,
-});
+const productsSchema = new mongoose.Schema(
+  {
+    title: String,
+    description: String,
+    price: Number,
+    discountPercentage: Number,
+    stock: Number,
+    thumbnail: String,
+    status: String,
+    position: Number,
+    deleted: Boolean,
+    deleteAt: Date,
+  },
+  {
+    timestamps: true,
+  }
+);
+
+// Override all methods
+productsSchema.plugin(mongoose_delete, { overrideMethods: "all" });
 
 const Products = mongoose.model("product", productsSchema);
 
