@@ -113,6 +113,17 @@ if (formChangeMulti) {
     );
     // console.log(inputsChecked.length);
 
+    const typeChange = e.target.elements.type.value;
+
+    if (typeChange == "delete-all") {
+      const isConfirm = confirm("Bạn có chắc chắn muốn xóa sản phẩm");
+
+      if (!isConfirm) {
+        return;
+      }
+    }
+    // console.log(typeChange);
+
     if (inputsChecked.length > 0) {
       let ids = [];
       const inputIds = document.querySelector("input[name = 'ids']");

@@ -97,7 +97,22 @@ module.exports.changeMulti = async (req, res) => {
   const type = req.body.type;
   const ids = req.body.ids.split(", ");
 
-  await Product.updateMany({ _id: { $in: ids } }, { status: type });
+  switch (type) {
+    case "active":
+      await Product.updateMany({ _id: { $in: ids } }, { status: "active" });
+      break;
+    case "inactive":
+      await Product.updateMany({ _id: { $in: ids } }, { status: "inactive" });
+      break;
+    case "delete-all":
+      await Product.updateMany(
+        { _id: { $in: ids } },
+        { deleted: true, deleteAt: new Date() }
+      );
+      break;
+    default:
+      break;
+  }
   console.log(req.body);
   res.redirect("back");
 };
