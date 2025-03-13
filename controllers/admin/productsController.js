@@ -69,7 +69,8 @@ module.exports.index = async (req, res) => {
   // console.log(">>>check find: ", req.query);
   const product = await Product.find(find)
     .limit(objectPagination.limitItems)
-    .skip(objectPagination.skip);
+    .skip(objectPagination.skip)
+    .sort({ position: "desc" });
 
   // console.log(">>>check product: ", product);
 
@@ -110,10 +111,24 @@ module.exports.changeMulti = async (req, res) => {
         { deleted: true, deleteAt: new Date() }
       );
       break;
+    case "change-position":
+      // console.log(ids);
+      for (const item of ids) {
+        let [id, position] = item.split("-");
+        position = parseInt(position);
+        // console.log(id);
+        // console.log(position);
+        await Product.updateMany({ _id: id }, { position: position });
+      }
+      // await Product.updateMany(
+      //   { _id: { $in: ids } },
+      //   { deleted: true, deleteAt: new Date() }
+      // );
+      break;
     default:
       break;
   }
-  console.log(req.body);
+  // console.log(req.body);
   res.redirect("back");
 };
 

@@ -3,7 +3,7 @@ const Product = require("../../models/products_models");
 module.exports.index = async (req, res) => {
   const product = await Product.find({
     status: "active",
-  });
+  }).sort({ position: "desc" });
 
   product.forEach((items) => {
     items.priceNew =
