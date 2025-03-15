@@ -2,6 +2,15 @@ extends ../../layout/default.pug
 include ../../mixins/filterStatus.pug
 
 block main
+  - if (messages.success)
+    .message.info
+      div(
+        class="alert alert-success"
+        show-alert
+        data-time="5000"
+      ) #{messages.success}
+      
+
   h1 Trang danh sách sản phẩm
 
   .card.mb-3

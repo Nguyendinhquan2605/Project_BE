@@ -5,6 +5,9 @@ const routerClient = require("./routes/client/index_Routes"); //router client
 const routerAdmin = require("./routes/admin/indexRoute"); //router admin
 const methodOverride = require("method-override");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const expressSession = require("express-session");
+const flash = require("express-flash");
 require("dotenv").config();
 
 const systemConfig = require("./config/system");
@@ -34,6 +37,12 @@ app.use(methodOverride("_method"));
 //views
 app.set("views", "./views");
 app.set("view engine", "pug");
+
+//Flash
+app.use(cookieParser("keyboard cat"));
+app.use(expressSession({ cookie: { maxAge: 60000 } }));
+app.use(flash());
+//End Flash
 
 // App locals Variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
