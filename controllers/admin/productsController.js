@@ -121,6 +121,7 @@ module.exports.changeMulti = async (req, res) => {
         { _id: { $in: ids } },
         { deleted: true, deleteAt: new Date() }
       );
+      req.flash("success", `Xóa thành công của ${ids.length} sản phẩm!`);
       break;
     case "change-position":
       // console.log(ids);
@@ -135,6 +136,10 @@ module.exports.changeMulti = async (req, res) => {
       //   { _id: { $in: ids } },
       //   { deleted: true, deleteAt: new Date() }
       // );
+      req.flash(
+        "success",
+        `Thay đổi vị trí thành công ${ids.length} sản phẩm !`
+      );
       break;
     default:
       break;
@@ -142,15 +147,6 @@ module.exports.changeMulti = async (req, res) => {
   // console.log(req.body);
   res.redirect("back");
 };
-
-// // [DELETE] /admin/products/delete/:id
-// module.exports.deleteItem = async (req, res) => {
-//   console.log(req.params);
-//   const id = req.params.id;
-
-//   await Product.deleteOne({ _id: id });
-//   res.redirect("back");
-// };
 
 // [DELETE] /admin/products/delete/:id
 module.exports.deleteItem = async (req, res) => {
@@ -164,5 +160,36 @@ module.exports.deleteItem = async (req, res) => {
       deleteAt: new Date(),
     }
   );
+  req.flash("success", "Xóa thành công 1 sản phẩm!");
+
   res.redirect("back");
+};
+
+// [POST] /admin/products/create
+module.exports.createItem = async (req, res) => {
+  res.render("admin/page/products/create.pug", {
+    pageTitle: "Thêm mới sản phẩm",
+  });
+};
+
+// [POST] /admin/products/create
+module.exports.createPosst = async (req, res) => {
+  // console.log(req.body);
+  req.body.price = parseFloat(req.body.price);
+  req.body.discountPercentage = parseFloat(req.body.discountPercentage);
+  req.body.stock = parseInt(req.body.stock);
+
+  if (req.body.position == "") {
+    const countPosition = await Product.countDocuments();
+    req.body.position = countPosition + 1;
+  } else {
+    req.body.position = parseInt(req.body.position);
+  }
+
+  console.log(req.body);
+  // res.send("ok");
+  const product = new Product(req.body);
+  await product.save();
+
+  res.redirect("/admin/products");
 };
