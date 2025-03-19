@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const mongoose_delete = require("mongoose-delete");
+const slug = require("mongoose-slug-updater");
+mongoose.plugin(slug);
 
 const productsSchema = new mongoose.Schema(
   {
@@ -11,6 +13,11 @@ const productsSchema = new mongoose.Schema(
     thumbnail: String,
     status: String,
     position: Number,
+    slug: {
+      type: String,
+      slug: "title", //sanpham1
+      unique: true,
+    },
     deleted: {
       type: Boolean,
       default: false,

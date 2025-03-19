@@ -174,7 +174,7 @@ module.exports.createItem = async (req, res) => {
 
 // [POST] /admin/products/create
 module.exports.createPosst = async (req, res) => {
-  // console.log(req.body);
+  // console.log(req.file);
   req.body.price = parseFloat(req.body.price);
   req.body.discountPercentage = parseFloat(req.body.discountPercentage);
   req.body.stock = parseInt(req.body.stock);
@@ -185,6 +185,8 @@ module.exports.createPosst = async (req, res) => {
   } else {
     req.body.position = parseInt(req.body.position);
   }
+
+  req.body.thumbnail = `/upload/${req.file.filename}`;
 
   console.log(req.body);
   // res.send("ok");
