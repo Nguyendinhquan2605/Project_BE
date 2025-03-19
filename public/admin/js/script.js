@@ -162,3 +162,36 @@ if (showAlert) {
   // console.log(showAlert);
 }
 //End Show-alert
+
+//upload Image
+const uploadImage = document.querySelector("[upload-image]");
+if (uploadImage) {
+  const uploadImage_input = document.querySelector("[upload-image-input]");
+  const uploadImage_preview = document.querySelector("[upload-image-preview]");
+
+  uploadImage_input.addEventListener("change", (e) => {
+    console.log(e);
+    const file = e.target.files[0];
+    if (file) {
+      uploadImage_preview.src = URL.createObjectURL(file);
+    }
+  });
+}
+//End upload Image
+
+//Delete file
+const deleteFile = document.querySelector("[delete-file]");
+if (deleteFile) {
+  console.log(deleteFile);
+  deleteFile.addEventListener("click", () => {
+    const uploadImage_input = document.querySelector("[upload-image-input]");
+    const uploadImage_preview = document.querySelector(
+      "[upload-image-preview]"
+    );
+    if (uploadImage_input && uploadImage_preview) {
+      uploadImage_input.value = "";
+      uploadImage_preview.src = "";
+    }
+  });
+}
+//End Delete file
