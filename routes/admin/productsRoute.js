@@ -24,4 +24,13 @@ router.post(
   controllers.createPosst
 );
 
+router.get("/edit/:id", controllers.edit);
+
+router.post(
+  "/edit/:id",
+  upload.single("thumbnail"),
+  validates.createPost,
+  controllers.editProduct
+);
+
 module.exports = router;

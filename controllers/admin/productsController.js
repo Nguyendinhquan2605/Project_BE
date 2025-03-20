@@ -191,9 +191,48 @@ module.exports.createPosst = async (req, res) => {
   }
 
   console.log(req.body);
-  // res.send("ok");
   const product = new Product(req.body);
   await product.save();
+
+  res.redirect("/admin/products");
+};
+
+// [POST] /admin/products/edit
+module.exports.edit = async (req, res) => {
+  console.log(req.params.id);
+
+  const find = {
+    deleted: false,
+    _id: req.params.id,
+  };
+
+  const product = await Product.findOne(find);
+  console.log(product);
+
+  res.render("admin/page/products/edit.pug", {
+    pageTitle: "Chỉnh sửa sản phẩm",
+    product: product,
+  });
+};
+
+// [PATH] /admin/products/edit
+module.exports.editProduct = async (req, res) => {
+  console.log(req.params.id);
+  req.body.price = parseFloat(req.body.price);
+  req.body.discountPercentage = parseFloat(req.body.discountPercentage);
+  req.body.stock = parseInt(req.body.stock);
+  req.body.position = parseInt(req.body.position);
+
+  if (req.file) {
+    req.body.thumbnail = `/upload/${req.file.filename}`;
+  }
+
+  try {
+    await Product.updateOne({ _id: req.params.id }, req.body);
+    req.flash("success", "Cập nhật thành công !");
+  } catch (error) {
+    req.flash("error", "Cập nhật thất bại!");
+  }
 
   res.redirect("/admin/products");
 };
