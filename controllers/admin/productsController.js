@@ -197,7 +197,7 @@ module.exports.createPosst = async (req, res) => {
   res.redirect("/admin/products");
 };
 
-// [POST] /admin/products/edit
+// [GET] /admin/products/edit/:id
 module.exports.edit = async (req, res) => {
   console.log(req.params.id);
 
@@ -215,9 +215,9 @@ module.exports.edit = async (req, res) => {
   });
 };
 
-// [PATH] /admin/products/edit
+// [PATH] /admin/products/edit/:id
 module.exports.editProduct = async (req, res) => {
-  console.log(req.params.id);
+  // console.log(req.params.id);
   req.body.price = parseFloat(req.body.price);
   req.body.discountPercentage = parseFloat(req.body.discountPercentage);
   req.body.stock = parseInt(req.body.stock);
@@ -235,4 +235,22 @@ module.exports.editProduct = async (req, res) => {
   }
 
   res.redirect("/admin/products");
+};
+
+// [GET] /admin/products/detail/:id
+module.exports.detail = async (req, res) => {
+  // console.log(req.params.id);
+
+  const find = {
+    deleted: false,
+    _id: req.params.id,
+  };
+
+  const product = await Product.findOne(find);
+  // console.log(product);
+
+  res.render("admin/page/products/detail.pug", {
+    pageTitle: product.title,
+    product: product,
+  });
 };

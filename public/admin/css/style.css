@@ -99,3 +99,59 @@ body .sider {
   display: none;
 }
 /* End Upload-image */
+
+/* Detail */
+
+h1 {
+  font-size: 24px;
+  color: #007bff;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+  padding: 10px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+b {
+  color: #d9534f;
+}
+
+.badge {
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.bg-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.bg-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+img {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: #212529;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+}
+
+/* End Detail */

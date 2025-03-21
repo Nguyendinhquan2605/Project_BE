@@ -33,4 +33,6 @@ router.post(
   controllers.editProduct
 );
 
+router.get("/detail/:id", controllers.detail);
+
 module.exports = router;
