@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const dbState = [
   { value: 0, label: "disconnected" },
@@ -9,8 +10,7 @@ const dbState = [
 
 const connection = async () => {
   try {
-    const MONGO_URI =
-      "mongodb+srv://ndquan2605:0904663861qq@cluster0.4cqy2.mongodb.net/Project_Test?retryWrites=true&w=majority";
+    const MONGO_URI = process.env.MONGOURL;
 
     const options = {
       useNewUrlParser: true,
