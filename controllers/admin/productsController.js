@@ -186,10 +186,6 @@ module.exports.createPosst = async (req, res) => {
     req.body.position = parseInt(req.body.position);
   }
 
-  if (req.file) {
-    req.body.thumbnail = `/upload/${req.file.filename}`;
-  }
-
   console.log(req.body);
   const product = new Product(req.body);
   await product.save();
