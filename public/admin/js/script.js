@@ -225,8 +225,7 @@ if (sort) {
   // Thêm selected cho option
   const sortKey = url.searchParams.get("sortKey");
   const sortValue = url.searchParams.get("sortValue");
-  // console.log(sortKey);
-  // console.log(sortValue);
+
   if (sortKey && sortValue) {
     const stringSort = `${sortKey}-${sortValue}`;
     // console.log(stringSort);
