@@ -66,11 +66,19 @@ module.exports.index = async (req, res) => {
   // console.log(totalsPage);
   objectPagination.totalsPage = totalsPage;
 
-  // console.log(">>>check find: ", req.query);
+  // Sort
+  let sort = {};
+  if (req.query.sortKey && req.query.sortValue) {
+    sort[req.query.sortKey] = req.query.sortValue; //localhost:3001/admin/products?sortKey=price&sortValue=asc
+  } else {
+    sort.position = "desc";
+  }
+  // End Sort
+
   const product = await Product.find(find)
     .limit(objectPagination.limitItems)
     .skip(objectPagination.skip)
-    .sort({ position: "desc" });
+    .sort(sort);
 
   // console.log(">>>check product: ", product);
 

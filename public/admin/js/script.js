@@ -195,3 +195,46 @@ if (deleteFile) {
   });
 }
 //End Delete file
+
+// Sort
+const sort = document.querySelector("[sort]");
+if (sort) {
+  const sortSelect = document.querySelector("[sort-select]");
+  const sortClear = document.querySelector("[sort-clear]");
+
+  // sắp xếp
+  sortSelect.addEventListener("change", (e) => {
+    const value = e.target.value;
+    const [sortKey, sortValue] = value.split("-");
+    // console.log(sortKey);
+    // console.log(sortValue);
+    url.searchParams.set("sortKey", sortKey);
+    url.searchParams.set("sortValue", sortValue);
+
+    window.location.href = url.href;
+  });
+
+  // Xóa sắp xếp
+  sortClear.addEventListener("click", () => {
+    url.searchParams.delete("sortKey");
+    url.searchParams.delete("sortValue");
+
+    window.location.href = url.href;
+  });
+
+  // Thêm selected cho option
+  const sortKey = url.searchParams.get("sortKey");
+  const sortValue = url.searchParams.get("sortValue");
+  // console.log(sortKey);
+  // console.log(sortValue);
+  if (sortKey && sortValue) {
+    const stringSort = `${sortKey}-${sortValue}`;
+    // console.log(stringSort);
+    const optionSelected = sortSelect.querySelector(
+      `option[value="${stringSort}"]`
+    );
+    console.log(optionSelected);
+    optionSelected.selected = true;
+  }
+}
+// End Sort
