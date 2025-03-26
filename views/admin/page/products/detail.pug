@@ -33,7 +33,7 @@ block main
     div(class="mb-4 vitri") Vị trí: <b>#{product.position}</b>
 
   if (product.description)
-    div(class="mb-4 mota") #{product.description}
+    div(class="mb-4 mota") !{product.description}
 
   a(
     href=`/admin/products/edit/${product.id}`,

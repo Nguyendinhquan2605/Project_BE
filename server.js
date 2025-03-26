@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const path = require("path");
 const connection = require("./config/database");
 const routerClient = require("./routes/client/index_Routes"); //router client
 const routerAdmin = require("./routes/admin/indexRoute"); //router admin
@@ -43,6 +44,12 @@ app.use(cookieParser("keyboard cat"));
 app.use(expressSession({ cookie: { maxAge: 60000 } }));
 app.use(flash());
 //End Flash
+
+// Tiny-MCE
+app.use(
+  "/tinymce",
+  express.static(path.join(__dirname, "node_modules", "tinymce"))
+);
 
 // App locals Variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
