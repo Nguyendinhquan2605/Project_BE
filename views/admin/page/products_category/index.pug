@@ -1,0 +1,93 @@
+extends ../../layout/default.pug
+include ../../mixins/filterStatus.pug
+
+block main
+  h1 Danh mục sản phẩm
+
+  .card.mb-3
+    .card-header Danh sách sản phẩm 
+      .card-body 
+        .row     
+          .col-4
+            a(
+              href=`/admin/products-category/create`
+              class="btn btn-outline-success"
+            ) + Thêm mới
+
+      table(
+        class="table table-hovertable-sm"
+        checkbox-multi
+      )
+        thead
+          tr
+            th 
+              input(type="checkbox" name="checkall")
+            th STT
+            th Hình Ảnh
+            th Tiêu Đề
+            th Vị trí
+            th Trạng Thái
+            th Hành Động
+
+        tbody
+          each item,index in records
+            tr
+              td 
+                input(
+                  type="checkbox"
+                  name="id"
+                  value=item.id 
+                )
+              td #{index + 1}
+              td
+                img(
+                  src=item.thumbnail 
+                  alt=item.title 
+                  width="100px"
+                  height="auto"
+                )
+              td #{item.title} 
+              td 
+                input(
+                  type="number"
+                  value=item.position 
+                  style="width: 60px"
+                  min="1"
+                  name="position"
+                )
+              td 
+                if(item.status == "active")
+                  a(
+                    href="javascript:;"
+                    data-status = "active"
+                    data-id = item.id 
+                    button-change-status
+                    class="btn btn-success"
+                  ) Hoạt động
+                else 
+                  a(
+                    href="javascript:;"
+                    data-status = "inactive"
+                    data-id = item.id 
+                    button-change-status
+                    class="btn btn-danger"
+                  ) Dừng hoạt động
+              td
+
+                a(href=`/admin/products/detail/${item.id}`
+                class="btn btn-secondary"
+              ) Chi tiết
+
+                a(href=`/admin/products/edit/${item.id}`
+                class="btn btn-warning"
+              ) Sửa
+                button(
+                  class="btn btn-danger"
+                  button-delete 
+                  data-id = item.id 
+                ) Xóa
+
+
+
+
+//-   script(src="/admin/js/products.js") 

@@ -173,7 +173,7 @@ module.exports.deleteItem = async (req, res) => {
   res.redirect("back");
 };
 
-// [POST] /admin/products/create
+// [GET] /admin/products/create
 module.exports.createItem = async (req, res) => {
   res.render("admin/page/products/create.pug", {
     pageTitle: "Thêm mới sản phẩm",
