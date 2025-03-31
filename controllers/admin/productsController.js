@@ -1,4 +1,5 @@
 const Product = require("../../models/products_models");
+const ProductsCategory = require("../../models/productsCategory_model");
 
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
@@ -175,8 +176,33 @@ module.exports.deleteItem = async (req, res) => {
 
 // [GET] /admin/products/create
 module.exports.createItem = async (req, res) => {
+  let find = {
+    deleted: false,
+  };
+
+  function createTree(arr, parentId = "") {
+    const tree = [];
+
+    arr.forEach((item) => {
+      if (item.parent_id === parentId) {
+        const newItem = item;
+        const children = createTree(arr, item.id);
+        if (children.length > 0) {
+          newItem.children = children;
+        }
+        tree.push(newItem);
+      }
+    });
+
+    return tree;
+  }
+
+  const category = await ProductsCategory.find(find);
+  const newCategory = createTree(category);
+
   res.render("admin/page/products/create.pug", {
     pageTitle: "Thêm mới sản phẩm",
+    category: newCategory,
   });
 };
 
@@ -203,20 +229,44 @@ module.exports.createPosst = async (req, res) => {
 
 // [GET] /admin/products/edit/:id
 module.exports.edit = async (req, res) => {
-  console.log(req.params.id);
+  // console.log(req.params.id);
+  try {
+    const find = {
+      deleted: false,
+      _id: req.params.id,
+    };
 
-  const find = {
-    deleted: false,
-    _id: req.params.id,
-  };
+    const product = await Product.findOne(find);
+    // console.log(product);
 
-  const product = await Product.findOne(find);
-  console.log(product);
+    const category = await ProductsCategory.find({
+      deleted: false,
+    });
 
-  res.render("admin/page/products/edit.pug", {
-    pageTitle: "Chỉnh sửa sản phẩm",
-    product: product,
-  });
+    function createTree(arr, parentId = "") {
+      const tree = [];
+      arr.forEach((item) => {
+        if (item.parent_id === parentId) {
+          const newItem = item;
+          const children = createTree(arr, item.id);
+          if (children.length > 0) {
+            newItem.children = children;
+          }
+          tree.push(newItem);
+        }
+      });
+      return tree;
+    }
+    const newCategory = createTree(category);
+
+    res.render("admin/page/products/edit.pug", {
+      pageTitle: "Chỉnh sửa sản phẩm",
+      product: product,
+      category: newCategory,
+    });
+  } catch (error) {
+    res.redirect("/admin/products");
+  }
 };
 
 // [PATH] /admin/products/edit/:id
