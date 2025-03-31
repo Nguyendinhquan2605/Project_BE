@@ -88,41 +88,44 @@ module.exports.createPost = async (req, res) => {
 // [GET] /admin/products-category/edit/:id
 module.exports.edit = async (req, res) => {
   // console.log(req.params.id);
-
-  const data = await ProductsCategory.findOne({
-    deleted: false,
-    _id: req.params.id,
-  });
-
-  const records = await ProductsCategory.find({
-    deleted: false,
-  });
-
-  console.log(">>>check records", records);
-
-  function createTree(arr, parentId = "") {
-    const tree = [];
-    arr.forEach((item) => {
-      if (item.parent_id === parentId) {
-        const newItem = item;
-        const children = createTree(arr, item.id);
-        if (children.length > 0) {
-          newItem.children = children;
-        }
-        tree.push(newItem);
-      }
+  try {
+    const data = await ProductsCategory.findOne({
+      deleted: false,
+      _id: req.params.id,
     });
 
-    return tree;
+    const records = await ProductsCategory.find({
+      deleted: false,
+    });
+
+    // console.log(">>>check records", records);
+
+    function createTree(arr, parentId = "") {
+      const tree = [];
+      arr.forEach((item) => {
+        if (item.parent_id === parentId) {
+          const newItem = item;
+          const children = createTree(arr, item.id);
+          if (children.length > 0) {
+            newItem.children = children;
+          }
+          tree.push(newItem);
+        }
+      });
+
+      return tree;
+    }
+
+    const newRecords = createTree(records);
+
+    res.render("admin/page/products_category/edit.pug", {
+      pageTitle: "Chỉnh sửa danh mục sản phẩm",
+      data: data,
+      records: newRecords,
+    });
+  } catch (error) {
+    res.redirect("/admin/products-category");
   }
-
-  const newRecords = createTree(records);
-
-  res.render("admin/page/products_category/edit.pug", {
-    pageTitle: "Chỉnh sửa danh mục sản phẩm",
-    data: data,
-    records: newRecords,
-  });
 };
 
 // [PATH] /admin/products-category/edit/:id
@@ -142,4 +145,25 @@ module.exports.editProduct_category = async (req, res) => {
   }
 
   res.redirect("/admin/products-category");
+};
+
+// [GET] /admin/products-categpry/detail/:id
+module.exports.detail = async (req, res) => {
+  // console.log(req.params.id);
+  try {
+    const find = {
+      deleted: false,
+      _id: req.params.id,
+    };
+
+    const data = await ProductsCategory.findOne(find);
+    // console.log(product);
+
+    res.render("admin/page/products_category/detail.pug", {
+      pageTitle: ProductsCategory.title,
+      data: data,
+    });
+  } catch (error) {
+    res.redirect("/admin/products-category");
+  }
 };

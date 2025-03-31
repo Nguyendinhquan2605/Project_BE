@@ -29,4 +29,6 @@ router.patch(
   controllers.editProduct_category
 );
 
+router.get("/detail/:id", controllers.detail);
+
 module.exports = router;
