@@ -1,0 +1,47 @@
+extends ../../layout/default.pug
+
+block main
+
+  - if (messages.error)
+      .message.info
+        div(
+          class="alert alert-danger"
+          show-alert
+          data-time="3000"
+        ) #{messages.error}
+
+  h1(class="mb-4") Chỉnh sửa nhóm quyền
+
+  form(
+    action=`/admin/roles/edit/${records.id}?_method=PATCH`
+    method="POST"
+  )
+    div(class="form-group")
+      label(for="title") Tiêu đề
+      input(
+        type="text"
+        class="form-control"
+        id="title"
+        name="title"
+        value=records.title
+        required
+      )
+    
+    div(class="form-group")
+      label(for="title") Mô tả ngắn
+      input(
+        type="text"
+        class="form-control"
+        id="description"
+        name="description"
+        value=records.description
+        required
+      )
+
+    div(class="form-group")
+      button(
+        type="submit"
+        class="btn btn-primary"
+      ) Cập nhật
+
+//-   script(src="/admin/js/products.js")

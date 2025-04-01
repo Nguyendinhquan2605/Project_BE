@@ -28,3 +28,32 @@ module.exports.createPost = async (req, res) => {
 
   res.redirect("/admin/roles");
 };
+
+// [GET] /admin/roles/edit/:id
+module.exports.edit = async (req, res) => {
+  const id = req.params.id;
+  const records = await Roles.findOne({
+    _id: id,
+    deleted: false,
+  });
+
+  res.render("admin/page/roles/edit.pug", {
+    pageTitle: "Trang chỉnh sửa nhóm quyền",
+    records: records,
+  });
+};
+
+// [PATCH] /admin/roles/edit/:id
+module.exports.editPatch = async (req, res) => {
+  console.log("id: ", req.params.id);
+  console.log(">>>check: ", req.body);
+
+  try {
+    await Roles.updateOne({ _id: req.params.id }, req.body);
+    req.flash("success", "Cập nhật thành công !");
+  } catch (error) {
+    req.flash("error", "Cập nhật thất bại!");
+  }
+
+  res.redirect("/admin/roles");
+};
