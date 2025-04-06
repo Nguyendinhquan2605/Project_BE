@@ -42,3 +42,9 @@ module.exports.loginPost = async (req, res) => {
   res.cookie("token", user.token);
   res.redirect("/admin/dashboard");
 };
+
+// [GET] /admin/accounts/logout
+module.exports.logout = async (req, res) => {
+  res.clearCookie("token");
+  res.redirect("/admin/auth/login");
+};
