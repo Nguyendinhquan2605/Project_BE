@@ -1,0 +1,99 @@
+/* Container canh giữa và căn lề */
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Tiêu đề */
+h1.text-center {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Nhóm form */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Nhãn */
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Input */
+.form-control {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Nút đăng nhập */
+.btn-block {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+}
+
+/* Hiển thị Alert */
+[show-alert] {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  max-width: 350px;
+  z-index: 1050;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 1;
+  transition: all 0.5s ease-in-out;
+}
+
+/* Hiệu ứng ẩn alert */
+[show-alert].alert-hidden {
+  animation: alert-hidden 0.5s forwards;
+}
+
+@keyframes alert-hidden {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+}
+
+/* Tùy chỉnh màu sắc alert */
+.alert-success {
+  background-color: #d1f7d6;
+  color: #20754d;
+  border: 1px solid #a3e4b0;
+}
+
+.alert-danger {
+  background-color: #fbd4d6;
+  color: #a33a3a;
+  border: 1px solid #f5a6a6;
+}
+
+/* End Show Alert */

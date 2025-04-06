@@ -1,0 +1,50 @@
+extends ../../layout/auth.pug
+
+block main
+
+  - if (messages.error)
+      .message.info
+        div(
+          class="alert alert-danger"
+          show-alert
+          data-time="3000"
+        ) #{messages.error}
+
+  - if (messages.success)
+      .message.info
+        div(
+          class="alert alert-success"
+          show-alert
+          data-time="3000"
+        ) #{messages.success}
+
+  .container.my-5
+    .row.justify-content-center
+      .col-8
+        h1(class="text-center") Đăng nhập
+        form(
+          action=`/admin/auth/login`
+          method="POST"
+        )
+          div(class="form-group")
+            label(for="email") Email
+            input(
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+            )
+          div(class="form-group")
+            label(for="password") Mật khẩu
+            input(
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+            )
+          br
+          div(class="form-group")
+            button(
+                type="submit"
+                class="btn btn-primary btn-block"
+            ) Đăng nhập
