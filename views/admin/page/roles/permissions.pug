@@ -1,141 +1,167 @@
 extends ../../layout/default.pug
 
 block main
-  - if (messages.error)
-      .message.info
-        div(
-          class="alert alert-danger"
-          show-alert
-          data-time="3000"
-        ) #{messages.error}
-  - if (messages.success)
-      .message.info
-        div(
-          class="alert alert-success"
-          show-alert
-          data-time="3000"
-        ) #{messages.success}
+  if(role.permissions.includes("role_permissions"))
+    - if (messages.error)
+        .message.info
+          div(
+            class="alert alert-danger"
+            show-alert
+            data-time="3000"
+          ) #{messages.error}
+    - if (messages.success)
+        .message.info
+          div(
+            class="alert alert-success"
+            show-alert
+            data-time="3000"
+          ) #{messages.success}
 
-  h1(class="mb-4") Phân quyền
+    h1(class="mb-4") Phân quyền
 
-  //- div #{records}
+    //- div #{records}
 
-  if(records)
-    div(data-records=records)
-    div(class="text-right")
-      button(
-        type="submit"
-        class="btn btn-primary mb-3"
-        button-submit
-      ) Cập nhật
+    if(records)
+      div(data-records=records)
+      div(class="text-right")
+        button(
+          type="submit"
+          class="btn btn-primary mb-3"
+          button-submit
+        ) Cập nhật
 
-    table(
-      class="table table-hover table-sm"
-      table-permissions
-      )
-      thead
-        tr
-          th Tính năng
-          each items in records
-            th(class="text-center") #{items.title}
-      tbody
-        tr(data-name="id" class="d-none")
-          td 
-          each items in records 
-            td(class="text-center")
-              input(type="text" value=items.id)
+      table(
+        class="table table-hover table-sm"
+        table-permissions
+        )
+        thead
+          tr
+            th Tính năng
+            each items in records
+              th(class="text-center") #{items.title}
+        tbody
+          tr(data-name="id" class="d-none")
+            td 
+            each items in records 
+              td(class="text-center")
+                input(type="text" value=items.id)
 
-        //- Danh mục sản phẩm
-        tr
-          td(colspan="4")
-            b Danh mục sản phẩm
-        tr(data-name="products-category_view")
-          td Xem
-          each items in records 
-            td(class="text-center")
-              input(type="checkbox")
-        tr(data-name="products-category_create")
-          td Thêm mới
-          each items in records
-            td(class="text-center")
-              input(type="checkbox")
-        tr(data-name="products-category_edit")
-          td Chỉnh sửa
-          each items in records
-            td(class="text-center")
-              input(type="checkbox")
-        tr(data-name="products-category_delete")
-          td Xóa
-          each items in records
-            td(class="text-center")
-              input(type="checkbox")
+          //- Danh mục sản phẩm
+          tr
+            td(colspan="4")
+              b Danh mục sản phẩm
+          tr(data-name="products-category_view")
+            td Xem
+            each items in records 
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="products-category_create")
+            td Thêm mới
+            each items in records
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="products-category_edit")
+            td Chỉnh sửa
+            each items in records
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="products-category_delete")
+            td Xóa
+            each items in records
+              td(class="text-center")
+                input(type="checkbox")
 
-        //- Sản phẩm
-        tr
-          td(colspan="4")
-            b Sản phẩm
-        tr(data-name="products_view")
-          td Xem
-          each items in records 
-            td(class="text-center")
-              input(type="checkbox")
-        tr(data-name="products_create")
-          td Thêm mới
-          each items in records
-            td(class="text-center")
-              input(type="checkbox")
-        tr(data-name="products_edit")
-          td Chỉnh sửa
-          each items in records
-            td(class="text-center")
-              input(type="checkbox")
-        tr(data-name="products_delete")
-          td Xóa
-          each items in records
-            td(class="text-center")
-              input(type="checkbox")
-        
-        //- Nhóm quyền
-        tr
-          td(colspan="4")
-            b Nhóm quyền
-        tr(data-name="role_view")
-          td Xem
-          each items in records 
-            td(class="text-center")
-              input(type="checkbox")
-        tr(data-name="role_create")
-          td Thêm mới
-          each items in records
-            td(class="text-center")
-              input(type="checkbox")
-        tr(data-name="role_edit")
-          td Chỉnh sửa
-          each items in records
-            td(class="text-center")
-              input(type="checkbox")
-        tr(data-name="role_delete")
-          td Xóa
-          each items in records
-            td(class="text-center")
-              input(type="checkbox")
-        tr(data-name="role_permissions")
-          td Phân quyền
-          each items in records
-            td(class="text-center")
-              input(type="checkbox")
-  
-  form(
-    id="form-change-permissions"
-    method="POST"
-    action=`/admin/roles/permissions?_method=PATCH`
-    class="d-none"
-  )
-    div(class="form-group")
-      input(
-        type="text"
-        class="form-control"
-        name="permissions"
-      )
+          //- Sản phẩm
+          tr
+            td(colspan="4")
+              b Sản phẩm
+          tr(data-name="products_view")
+            td Xem
+            each items in records 
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="products_create")
+            td Thêm mới
+            each items in records
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="products_edit")
+            td Chỉnh sửa
+            each items in records
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="products_delete")
+            td Xóa
+            each items in records
+              td(class="text-center")
+                input(type="checkbox")
+          
+          //- Nhóm quyền
+          tr
+            td(colspan="4")
+              b Nhóm quyền
+          tr(data-name="role_view")
+            td Xem
+            each items in records 
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="role_create")
+            td Thêm mới
+            each items in records
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="role_edit")
+            td Chỉnh sửa
+            each items in records
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="role_delete")
+            td Xóa
+            each items in records
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="role_permissions")
+            td Phân quyền
+            each items in records
+              td(class="text-center")
+                input(type="checkbox")
 
-  script(src="/admin/js/roles.js") 
+          //- Tài khoản
+          tr
+            td(colspan="4")
+              b Tài khoản
+          tr(data-name="account_view")
+            td Xem
+            each items in records 
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="account_create")
+            td Thêm mới
+            each items in records
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="account_edit")
+            td Chỉnh sửa
+            each items in records
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="account_delete")
+            td Xóa
+            each items in records
+              td(class="text-center")
+                input(type="checkbox")
+    
+    form(
+      id="form-change-permissions"
+      method="POST"
+      action=`/admin/roles/permissions?_method=PATCH`
+      class="d-none"
+    )
+      div(class="form-group")
+        input(
+          type="text"
+          class="form-control"
+          name="permissions"
+        )
+
+    script(src="/admin/js/roles.js") 

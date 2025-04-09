@@ -3,15 +3,21 @@
     ul
       li
         a(href="/admin/dashboard") Tổng quan
-      li
-        a(href="/admin/products") Danh sách Sản phẩm
-      li
-        a(href="/admin/products/create") Thêm mới sản phẩm
-      li
-        a(href="/admin/products-category") Danh mục sản phẩm
-      li
-        a(href="/admin/roles") Nhóm Quyền
-      li
-        a(href="/admin/roles/permissions") Phân Quyền
-      li
-        a(href="/admin/accounts") Danh sách tài khoản
+      if(role.permissions.includes("products_view"))
+        li
+          a(href="/admin/products") Danh sách Sản phẩm
+      if(role.permissions.includes("products_create"))
+        li
+          a(href="/admin/products/create") Thêm mới sản phẩm
+      if(role.permissions.includes("products-category_view"))
+        li
+          a(href="/admin/products-category") Danh mục sản phẩm
+      if(role.permissions.includes("role_view"))
+        li
+          a(href="/admin/roles") Nhóm Quyền
+      if(role.permissions.includes("role_permissions"))
+        li
+          a(href="/admin/roles/permissions") Phân Quyền
+      if(role.permissions.includes("account_view"))
+        li
+          a(href="/admin/accounts") Danh sách tài khoản
