@@ -90,3 +90,20 @@ module.exports.permissionsPatch = async (req, res) => {
 
   res.redirect("back");
 };
+
+// [DELETE] /admin/roles/delete/:id
+module.exports.deleteRole = async (req, res) => {
+  console.log(req.params);
+  const id = req.params.id;
+
+  await Roles.updateOne(
+    { _id: id },
+    {
+      deleted: true,
+      deleteAt: new Date(),
+    }
+  );
+  req.flash("success", "Xóa thành công 1 sản phẩm!");
+
+  res.redirect("back");
+};

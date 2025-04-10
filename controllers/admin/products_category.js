@@ -167,3 +167,33 @@ module.exports.detail = async (req, res) => {
     res.redirect("/admin/products-category");
   }
 };
+
+// [DELETE] /admin/products-category/delete/:id
+module.exports.deleteItem = async (req, res) => {
+  console.log(req.params);
+  const id = req.params.id;
+
+  await ProductsCategory.updateOne(
+    { _id: id },
+    {
+      deleted: true,
+      deleteAt: new Date(),
+    }
+  );
+  req.flash("success", "Xóa thành công 1 sản phẩm!");
+
+  res.redirect("back");
+};
+
+// [PATH] /admin/products-category/change-status/:status/:id
+module.exports.changeStatus = async (req, res) => {
+  console.log(req.params);
+  const status = req.params.status;
+  const id = req.params.id;
+
+  await ProductsCategory.updateOne({ _id: id }, { status: status });
+
+  req.flash("success", "Cập nhật trạng thái thành công!");
+
+  res.redirect("back");
+};

@@ -1,6 +1,14 @@
 extends ../../layout/default.pug
 
 block main
+  - if (messages.success)
+    .message.info
+      div(
+        class="alert alert-success"
+        show-alert
+        data-time="5000"
+      ) #{messages.success}
+
   h1(class="mb-4") Nhóm quyền
 
   .card.mb-3
@@ -40,7 +48,21 @@ block main
                   href=`/admin/roles/edit/${item.id}`
                 ) Sửa
               if(role.permissions.includes("role_delete"))
-                button(class="btn btn-danger btn-sm ml-1") Xóa
+                button(
+                  button-delete 
+                  data-id = item.id
+                  class="btn btn-danger btn-sm ml-1"
+                ) Xóa
       else
         tr
           td(colspan="4" class="text-center") Chưa có nhóm quyền nào được tạo.
+
+  form(
+    action="",
+    method="POST"
+    id= "form-delete-item"
+    data-path = "/admin/roles/delete" 
+  ) 
+
+
+  script(src="/admin/js/products.js")  

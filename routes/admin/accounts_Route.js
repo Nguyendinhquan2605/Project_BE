@@ -30,4 +30,11 @@ router.patch(
   Account_Controllers.editPatch
 );
 
+router.delete("/delete/:id", Account_Controllers.deleteAccount);
+
+router.patch(
+  "/change-status/:status/:id",
+  Account_Controllers.changeStatus_Account
+);
+
 module.exports = router;

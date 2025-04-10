@@ -1,6 +1,6 @@
 const md5 = require("md5");
-const Accounts = require("../../models/account_model");
 const Roles = require("../../models/roles_Model");
+const Accounts = require("../../models/account_model");
 
 // [GET] /admin/accounts
 module.exports.index = async (req, res) => {
@@ -102,5 +102,35 @@ module.exports.editPatch = async (req, res) => {
 
     req.flash("success", "Cập nhật thành công!");
   }
+  res.redirect("back");
+};
+
+// [DELETE] /admin/roles/delete/:id
+module.exports.deleteAccount = async (req, res) => {
+  // console.log(req.params);
+  const id = req.params.id;
+
+  await Accounts.updateOne(
+    { _id: id },
+    {
+      deleted: true,
+      deleteAt: new Date(),
+    }
+  );
+  req.flash("success", "Xóa thành công 1 tài khoản!");
+
+  res.redirect("back");
+};
+
+// [PATH] /admin/products/change-status/:status/:id
+module.exports.changeStatus_Account = async (req, res) => {
+  console.log(req.params);
+  const status = req.params.status;
+  const id = req.params.id;
+
+  await Accounts.updateOne({ _id: id }, { status: status });
+
+  req.flash("success", "Cập nhật trạng thái tài khoản thành công!");
+
   res.redirect("back");
 };
