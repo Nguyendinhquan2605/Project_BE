@@ -10,10 +10,11 @@ block main
       .row
         .col-8
         .col-4.text-right
-          a(
-            href=`/admin/accounts/create`
-            class="btn btn-outline-success"
-          ) + Thêm mới
+          if(role.permissions.includes("account_create"))
+            a(
+              href=`/admin/accounts/create`
+              class="btn btn-outline-success"
+            ) + Thêm mới
       
       br
 
