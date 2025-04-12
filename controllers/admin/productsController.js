@@ -1,5 +1,7 @@
 const Product = require("../../models/products_models");
 const ProductsCategory = require("../../models/productsCategory_model");
+const Accounts = require("../../models/account_model");
+const Account = require("../../models/account_model");
 
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
@@ -76,16 +78,26 @@ module.exports.index = async (req, res) => {
   }
   // End Sort
 
-  const product = await Product.find(find)
+  const products = await Product.find(find)
     .limit(objectPagination.limitItems)
     .skip(objectPagination.skip)
     .sort(sort);
 
   // console.log(">>>check product: ", product);
 
+  for (const product of products) {
+    const user = await Account.findOne({
+      _id: product.CreatedBy.account_id,
+    });
+
+    if (user) {
+      product.accountFullname = user.fullname;
+    }
+  }
+
   res.render("admin/page/products/index.pug", {
     pageTitle: "Trang danh sách sản phẩm",
-    Products: product,
+    Products: products,
     filterStatus: filterStatus,
     keyword: keyword,
     pagination: objectPagination,
@@ -128,7 +140,13 @@ module.exports.changeMulti = async (req, res) => {
     case "delete-all":
       await Product.updateMany(
         { _id: { $in: ids } },
-        { deleted: true, deleteAt: new Date() }
+        {
+          deleted: true,
+          deletedBy: {
+            account_id: res.locals.user.id,
+            deletedAt: new Date(),
+          },
+        }
       );
       req.flash("success", `Xóa thành công của ${ids.length} sản phẩm!`);
       break;
@@ -166,7 +184,11 @@ module.exports.deleteItem = async (req, res) => {
     { _id: id },
     {
       deleted: true,
-      deleteAt: new Date(),
+      // deleteAt: new Date(),
+      deletedBy: {
+        account_id: res.locals.user.id,
+        deletedAt: new Date(),
+      },
     }
   );
   req.flash("success", "Xóa thành công 1 sản phẩm!");
@@ -219,6 +241,10 @@ module.exports.createPosst = async (req, res) => {
   } else {
     req.body.position = parseInt(req.body.position);
   }
+
+  req.body.CreatedBy = {
+    account_id: res.locals.user.id,
+  };
 
   console.log(req.body);
   const product = new Product(req.body);

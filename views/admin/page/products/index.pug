@@ -1,5 +1,6 @@
 extends ../../layout/default.pug
 include ../../mixins/filterStatus.pug
+include ../../mixins/moment.pug
 
 block main
   - if (messages.success)
@@ -108,6 +109,7 @@ block main
             th Giá
             th Vị trí
             th Trạng Thái
+            th Người tạo
             th Hành Động
             //- th Hàng tồn kho
 
@@ -165,6 +167,12 @@ block main
                     a(
                       class="btn btn-danger"
                     ) Dừng hoạt động
+              
+              td
+               p #{item.accountFullname}
+               p 
+                 +formatDateTime(item.CreatedBy.createdAt)
+              
               td
                 a(href=`/admin/products/detail/${item.id}`
                 class="btn btn-secondary"

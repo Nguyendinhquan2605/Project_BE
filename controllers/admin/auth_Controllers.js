@@ -18,7 +18,7 @@ module.exports.login = async (req, res) => {
 
 // [POST] /admin/accounts
 module.exports.loginPost = async (req, res) => {
-  console.log(">>>check req.body: ", req.body);
+  // console.log(">>>check req.body: ", req.body);
   const email = req.body.email;
   const password = req.body.password;
 
@@ -39,7 +39,7 @@ module.exports.loginPost = async (req, res) => {
     return;
   }
 
-  console.log(">>>check pass: ", password);
+  // console.log(">>>check pass: ", password);
 
   if (user.status == "inactive") {
     req.flash("error", "Tài khoản đã bị khóa");
