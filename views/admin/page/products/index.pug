@@ -110,6 +110,7 @@ block main
             th Vị trí
             th Trạng Thái
             th Người tạo
+            th Người sửa
             th Hành Động
             //- th Hàng tồn kho
 
@@ -174,14 +175,23 @@ block main
                  +formatDateTime(item.CreatedBy.createdAt)
               
               td
+               - const updatedBy = item.updatedBy.slice(-1)[0];
+               if(updatedBy)
+                p #{updatedBy.fullname}
+                p 
+                  +formatDateTime(updatedBy.updatedAt)
+                
+              td
                 a(href=`/admin/products/detail/${item.id}`
                 class="btn btn-secondary"
               ) Chi tiết
 
-                if(role.permissions.includes("products-category_edit"))
+                if(role.permissions.includes("products_edit"))
                   a(href=`/admin/products/edit/${item.id}`
                   class="btn btn-warning"
                 ) Sửa
+
+                if(role.permissions.includes("products_delete"))
                   button(
                     class="btn btn-danger"
                     button-delete 
