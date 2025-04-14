@@ -1,20 +1,18 @@
 const Product = require("../../models/products_models");
+const products_helper = require("../../helper/products");
 
 module.exports.index = async (req, res) => {
   const product = await Product.find({
     status: "active",
   }).sort({ position: "desc" });
 
-  product.forEach((items) => {
-    items.priceNew =
-      (items.price * (100 - items.discountPercentage)).toFixed(0) / 100;
-  });
+  const newProducts = products_helper.PriceNew_Products(product);
 
   // console.log(">>>check product: ", product);
 
   res.render("client/page/products/index.pug", {
     pageTitle: "Danh sách sản phẩm",
-    products: product,
+    products: newProducts,
   });
 };
 

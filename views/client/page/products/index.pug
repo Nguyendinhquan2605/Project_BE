@@ -1,21 +1,12 @@
 extends  ../../layouts/default.pug
 include ../../mixins/box-head.pug
+include ../../mixins/products_layout.pug
   
 block main
   .container.my-3
     .row
       .col-12
         +box-head("Danh sách sản phẩm")
-    .row
-      each items in products
-        .col-4.mb-3
-          .product-item
-            .inner-image
-              img(src= items.thumbnail , alt="")
-            .inner-content
-              h3.inner-title 
-                a(href=`/products/${items.slug}` style="text-decoration: none;") #{items.title}
-              .inner-price-new #{items.priceNew}$
-              .inner-price-old #{items.price}$
-              .inner-discount #{items.discountPercentage}%
+
+    +products-grid(products)
  

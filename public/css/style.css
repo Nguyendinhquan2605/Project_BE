@@ -148,6 +148,19 @@ header.header {
 .inner-image {
   text-align: center;
   margin-bottom: 15px;
+  position: relative;
+}
+
+.inner-featured {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: green;
+  color: white;
+  padding: 3px 6px;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 8px;
 }
 
 .inner-image img {
