@@ -19,19 +19,31 @@ module.exports.index = async (req, res) => {
   });
 };
 
-// [GET] /products/:slug
+// [GET] /products/detai/:slugProduct
 module.exports.detail = async (req, res) => {
   // console.log(req.params.slug);
 
   try {
     const find = {
       deleted: false,
-      slug: req.params.slug,
+      slug: req.params.slugProduct,
       status: "active",
     };
 
     const product = await Product.findOne(find);
     console.log(product);
+
+    if (product.products_category_id) {
+      const category = await ProductsCategory.findOne({
+        _id: product.products_category_id,
+        status: "active",
+        deleted: false,
+      });
+
+      product.category = category;
+    }
+
+    product.priceNew = products_helper.PriceNew_Product(product);
 
     res.render("client/page/products/detail.pug", {
       pageTitle: product.slug,

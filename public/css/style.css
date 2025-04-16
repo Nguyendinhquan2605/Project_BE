@@ -277,3 +277,119 @@ b {
 }
 
 /* End sub-menu */
+
+/* product-detail */
+.product-detail {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.inner-thumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner-thumb img {
+  width: 80%; /* Giảm từ 100% xuống còn 80% */
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
+
+.inner-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.inner-category {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.inner-category span {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.inner-category a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.inner-category a:hover {
+  text-decoration: underline;
+}
+
+.inner-price-new {
+  font-size: 1.5rem;
+  color: #e63946;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.inner-price-old {
+  font-size: 1rem;
+  text-decoration: line-through;
+  color: #aaa;
+  margin-bottom: 0.5rem;
+}
+
+.inner-percent {
+  background-color: #ffe0e0;
+  color: #d90429;
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.inner-percent span {
+  font-weight: 600;
+}
+
+.inner-stock {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.inner-stock span {
+  font-weight: bold;
+  color: #28a745;
+}
+
+form {
+  margin-top: 1.5rem;
+}
+
+input[type="number"] {
+  max-width: 120px;
+  display: inline-block;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+button.btn-success {
+  background-color: #28a745;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+button.btn-success:hover {
+  background-color: #218838;
+}
+
+.inner-desc {
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  line-height: 1.6;
+  font-size: 1rem;
+}
