@@ -63,19 +63,47 @@ header.header {
   cursor: pointer;
 }
 
-/* Nút tư vấn */
-.search-button .btn {
-  background: linear-gradient(to right, #ff6600, #ff3300);
-  color: #fff;
-  padding: 10px 15px;
-  border-radius: 20px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background 0.3s ease-in-out;
+/* Căn giữa form-group trong .col-5 */
+header.header .col-5 {
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  height: 100%; /* Đảm bảo chiều cao đầy đủ để căn giữa */
 }
 
-.search-button .btn:hover {
-  background: linear-gradient(to right, #ff3300, #cc0000);
+/* Căn chỉnh form và các phần tử bên trong */
+header.header form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Nhóm input và button */
+header.header .form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  width: 100%;
+}
+
+/* Input tìm kiếm dài ra */
+header.header input.form-control {
+  flex: 1; /* Cho phép input chiếm toàn bộ chiều rộng còn lại */
+  height: 38px;
+  padding: 6px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 0; /* Đảm bảo không bị overflow do flex */
+}
+
+/* Nút tìm */
+header.header button.btn {
+  height: 38px;
+  margin-left: 10px;
+  padding: 0 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  white-space: nowrap;
 }
 
 /* Footer */
