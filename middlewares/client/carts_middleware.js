@@ -18,7 +18,7 @@ module.exports.cardId = async (req, res, next) => {
     const cart = new Cart();
     await cart.save();
 
-    console.log(cart);
+    // console.log(cart);
     const expiresTime = 1000 * 60 * 60 * 24 * 365;
     res.cookie("cartId", cart.id, {
       expires: new Date(Date.now() + expiresTime),
@@ -33,7 +33,7 @@ module.exports.cardId = async (req, res, next) => {
       (sum, item) => sum + item.quantity,
       0
     );
-    console.log(cart);
+    // console.log(cart);
     res.locals.miniCart = cart;
   }
 

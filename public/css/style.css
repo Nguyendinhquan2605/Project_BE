@@ -448,3 +448,49 @@ button.btn-success:hover {
 }
 
 /* End Show Alert */
+
+/* ============================
+   CSS cho giao diện giỏ hàng
+   ============================ */
+
+/* Header bảng */
+.table thead th {
+  background-color: #f8f9fa;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 600;
+}
+
+/* Dòng sản phẩm */
+.table tbody td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* Ảnh sản phẩm */
+.table img {
+  border-radius: 6px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Input số lượng */
+input[name="quantity"] {
+  text-align: center;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Tổng đơn hàng */
+.text-right h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* Nút thanh toán */
+.text-right .btn-success {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+}
