@@ -31,7 +31,7 @@ module.exports.detail = async (req, res) => {
     };
 
     const product = await Product.findOne(find);
-    console.log(product);
+    // console.log(product);
 
     if (product.products_category_id) {
       const category = await ProductsCategory.findOne({

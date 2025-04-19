@@ -1,14 +1,21 @@
-const productRoutes = require("./products_router");
-const homeRoutes = require("./home_router");
 const category_middleware = require("../../middlewares/client/category_middleware");
+const cardMiddleware = require("../../middlewares/client/carts_middleware");
+
+const homeRoutes = require("./home_router");
+const productRoutes = require("./products_router");
 const search_Routes = require("./search_route");
+const cart_Route = require("./cart_Route");
 
 module.exports = (app) => {
   app.use(category_middleware.category);
+
+  app.use(cardMiddleware.cardId);
 
   app.use("/", homeRoutes);
 
   app.use("/products", productRoutes);
 
   app.use("/search", search_Routes);
+
+  app.use("/cart", cart_Route);
 };
