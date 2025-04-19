@@ -43,6 +43,6 @@ module.exports.addPost = async (req, res) => {
     );
   }
 
-  //   req.flash("success", "Thêm sản phẩm vào giỏ hàng thành công!");
+  req.flash("success", "Thêm sản phẩm vào giỏ hàng thành công!");
   res.redirect("back");
 };
