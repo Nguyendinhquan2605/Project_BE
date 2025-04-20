@@ -8,7 +8,7 @@ if (inputsQuantity.length > 0) {
       console.log(productId);
       console.log(quantity);
 
-      if (quantity > 1) {
+      if (quantity > 0) {
         window.location.href = `/cart/update/${productId}/${quantity}`;
       }
     });
