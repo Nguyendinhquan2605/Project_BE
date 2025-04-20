@@ -36,6 +36,15 @@ module.exports.create = async (req, res) => {
 
 // [POST] /admin/accounts/create
 module.exports.createPost = async (req, res) => {
+  const permissions = res.locals.role.permissions;
+  console.log("Check: ", permissions);
+  if (permissions.include("account_create")) {
+    console.log("Có quyền!");
+  } else {
+    res.send("403");
+    return;
+  }
+
   const emailExist = await Accounts.findOne({
     email: req.body.email,
     deleted: false,
@@ -82,6 +91,15 @@ module.exports.edit = async (req, res) => {
 
 // [PATCH] /admin/accounts/edit/:id
 module.exports.editPatch = async (req, res) => {
+  const permissions = res.locals.role.permissions;
+  console.log("Check: ", permissions);
+  if (permissions.include("account_edit")) {
+    console.log("Có quyền!");
+  } else {
+    res.send("403");
+    return;
+  }
+
   const emailExist = await Accounts.findOne({
     _id: { $ne: req.params.id },
     email: req.body.email,

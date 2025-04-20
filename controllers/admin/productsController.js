@@ -270,6 +270,15 @@ module.exports.createItem = async (req, res) => {
 // [POST] /admin/products/create
 module.exports.createPosst = async (req, res) => {
   // console.log(req.file);
+  const permissions = res.locals.role.permissions;
+  console.log("Check: ", permissions);
+  if (permissions.include("products_create")) {
+    console.log("Có quyền!");
+  } else {
+    res.send("403");
+    return;
+  }
+
   req.body.price = parseFloat(req.body.price);
   req.body.discountPercentage = parseFloat(req.body.discountPercentage);
   req.body.stock = parseInt(req.body.stock);
@@ -337,6 +346,15 @@ module.exports.edit = async (req, res) => {
 // [PATH] /admin/products/edit/:id
 module.exports.editProduct = async (req, res) => {
   // console.log(req.params.id);
+  const permissions = res.locals.role.permissions;
+  console.log("Check: ", permissions);
+  if (permissions.include("products_edit")) {
+    console.log("Có quyền!");
+  } else {
+    res.send("403");
+    return;
+  }
+
   req.body.price = parseFloat(req.body.price);
   req.body.discountPercentage = parseFloat(req.body.discountPercentage);
   req.body.stock = parseInt(req.body.stock);

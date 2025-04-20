@@ -138,7 +138,16 @@ module.exports.edit = async (req, res) => {
 
 // [PATH] /admin/products-category/edit/:id
 module.exports.editProduct_category = async (req, res) => {
-  console.log(req.params.id);
+  // console.log(req.params.id);
+  const permissions = res.locals.role.permissions;
+  console.log("Check: ", permissions);
+  if (permissions.include("products-category_edit")) {
+    console.log("Có quyền!");
+  } else {
+    res.send("403");
+    return;
+  }
+
   req.body.position = parseInt(req.body.position);
 
   if (req.file) {

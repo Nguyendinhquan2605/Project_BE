@@ -22,6 +22,15 @@ module.exports.create = async (req, res) => {
 
 // [POST] / admin / roles / create;
 module.exports.createPost = async (req, res) => {
+  const permissions = res.locals.role.permissions;
+  console.log("Check: ", permissions);
+  if (permissions.include("role_create")) {
+    console.log("Có quyền!");
+  } else {
+    res.send("403");
+    return;
+  }
+
   console.log(">>>check:", req.body);
   const records = new Roles(req.body);
   await records.save();
@@ -45,8 +54,17 @@ module.exports.edit = async (req, res) => {
 
 // [PATCH] /admin/roles/edit/:id
 module.exports.editPatch = async (req, res) => {
-  console.log("id: ", req.params.id);
-  console.log(">>>check: ", req.body);
+  const permissions = res.locals.role.permissions;
+  console.log("Check: ", permissions);
+  if (permissions.include("role_edit")) {
+    console.log("Có quyền!");
+  } else {
+    res.send("403");
+    return;
+  }
+
+  // console.log("id: ", req.params.id);
+  // console.log(">>>check: ", req.body);
 
   try {
     await Roles.updateOne({ _id: req.params.id }, req.body);
