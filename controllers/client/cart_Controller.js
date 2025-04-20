@@ -83,3 +83,18 @@ module.exports.index = async (req, res) => {
     cartDetail: cart,
   });
 };
+
+//[GET] /cart/delete/productId
+module.exports.delete = async (req, res) => {
+  const productId = req.params.productId;
+
+  const cartId = req.cookies.cartId;
+
+  await Cart.updateOne(
+    { _id: cartId },
+    { $pull: { products: { products_id: productId } } }
+  );
+
+  req.flash("success", "Xóa thành công!");
+  res.redirect("back");
+};
