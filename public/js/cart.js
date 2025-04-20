@@ -4,11 +4,13 @@ if (inputsQuantity.length > 0) {
   inputsQuantity.forEach((input) => {
     input.addEventListener("change", (e) => {
       const productId = input.getAttribute("product-id");
-      const quantity = input.value;
+      const quantity = parseInt(input.value);
       console.log(productId);
       console.log(quantity);
 
-      window.location.href = `/cart/update/${productId}/${quantity}`;
+      if (quantity > 1) {
+        window.location.href = `/cart/update/${productId}/${quantity}`;
+      }
     });
   });
 }
