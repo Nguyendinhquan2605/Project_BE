@@ -23,6 +23,6 @@ const orderSchema = new mongoose.Schema(
   }
 );
 
-const Oders = mongoose.model("Cart", orderSchema, "orders");
+const Oders = mongoose.model("Oders", orderSchema, "orders");
 
 module.exports = Oders;
