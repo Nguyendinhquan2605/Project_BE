@@ -6,7 +6,7 @@ const orderSchema = new mongoose.Schema(
     cart_id: String,
     userInfor: {
       fullName: String,
-      phone: Number,
+      phone: String,
       address: String,
     },
     products: [
