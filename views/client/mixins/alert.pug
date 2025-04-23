@@ -8,7 +8,7 @@ mixin alert-success(time)
 
 mixin alert-error(time)
   if messages.error
-    div(class="alert alert-success"
+    div(class="alert alert-danger"
      show-alert,
      data-time=time
     ) #{messages.error}
