@@ -31,3 +31,10 @@ module.exports.postRegister = async (req, res) => {
 
   res.redirect("/");
 };
+
+//[GET] /user/login
+module.exports.login = (req, res) => {
+  res.render("client/page/user/login", {
+    pageTittle: "Trang đăng ký tài khoản",
+  });
+};

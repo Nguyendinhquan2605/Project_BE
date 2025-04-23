@@ -2,13 +2,13 @@ include ../mixins/sub_Menu.pug
 
 header.header
   .container
-    .row.align-items-center
-      .col-3
+    .header-wrapper
+      .header-logo
         .inner-logo
           a(href="/")
             img(src="/img/logo.svg", alt="Logo")
 
-      .col-5
+      .header-search
         form(action="/search", method="GET")
           div(class="form-group d-flex mb-0")
             input(
@@ -20,7 +20,7 @@ header.header
             )
             button(type="submit", class="btn btn-primary") Tìm
 
-      .col-4
+      .header-menu
         .inner-menu
           ul
             li
@@ -32,6 +32,8 @@ header.header
             li 
               a(href="/cart") Giỏ hàng (#{miniCart ?  miniCart.totalQuantity : "0"})
             li 
+              button(class="btn btn-login")
+                a(href="/user/login") Đăng nhập
+            li 
               button(class="btn btn-register")
                 a(href="/user/register") Đăng ký
-              
