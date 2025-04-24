@@ -1,10 +1,12 @@
 const User = require("../../models/user_model");
 const md5 = require("md5");
+const forgotPass = require("../../models/forgot_password_model");
+const generateHelper = require("../../helper/generate");
 
 //[GET] /user/register
 module.exports.register = (req, res) => {
   res.render("client/page/user/register", {
-    pageTittle: "Trang đăng ký tài khoản",
+    pageTitle: "Trang đăng ký tài khoản",
   });
 };
 
@@ -35,7 +37,7 @@ module.exports.postRegister = async (req, res) => {
 //[GET] /user/login
 module.exports.login = (req, res) => {
   res.render("client/page/user/login", {
-    pageTittle: "Trang đăng ký tài khoản",
+    pageTitle: "Trang đăng nhập",
   });
 };
 
@@ -77,4 +79,79 @@ module.exports.logout = async (req, res) => {
   res.clearCookie("tokenUser");
 
   res.redirect("/");
+};
+
+//[GET] /user/password/forgot
+module.exports.forgotPassword = async (req, res) => {
+  res.render("client/page/user/forgot-password.pug", {
+    pageTitle: "Trang quên mật khẩu",
+  });
+};
+
+//[POST] /user/password/forgot
+module.exports.forgotPasswordPost = async (req, res) => {
+  const user = await User.findOne({
+    email: req.body.email,
+    deleted: false,
+  });
+
+  if (!user) {
+    req.flash("error", "Email không tồn tại");
+    res.redirect("back");
+    return;
+  }
+
+  // Tạo mã OTP và lưu thông tin yêu cầu vào collection forgot-pasword
+  const otp = generateHelper.generateRandomNumber(5);
+
+  const objectForgotPassword = {
+    email: req.body.email,
+    otp: otp,
+    expireAt: Date.now(),
+  };
+
+  const forgotPassword = new forgotPass(objectForgotPassword);
+  forgotPassword.save();
+
+  // Gửi mã OTP  qua email của user
+
+  res.redirect(`/user/password/otp?email=${req.body.email}`);
+};
+
+//[GET] /user/password/otp
+module.exports.otpPassword = async (req, res) => {
+  const email = req.query.email;
+
+  res.render("client/page/user/otp-password.pug", {
+    pageTitle: "Nhập mã OTP",
+    email: email,
+  });
+};
+
+//[POST] /user/password/otp
+module.exports.otpPasswordPost = async (req, res) => {
+  const email = req.body.email;
+  const otp = req.body.otp;
+
+  const result = await forgotPass.findOne({
+    email: email,
+    otp: otp,
+  });
+
+  console.log(result);
+
+  if (!result) {
+    req.flash("error", "OTP không hợp lệ!");
+    res.redirect("back");
+    return;
+  }
+
+  const user = await User.findOne({
+    email: email,
+    deleted: false,
+  });
+
+  res.cookie("tokenUser", user.tokenUser);
+
+  res.redirect("/user/password/reset");
 };
