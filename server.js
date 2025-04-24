@@ -56,12 +56,12 @@ app.use(
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 app.locals.moment = moment;
 
+//config static file
+app.use(express.static(`${__dirname}/public`));
+
 // Router
 routerClient(app);
 routerAdmin(app);
-
-//config static file
-app.use(express.static(`${__dirname}/public`));
 
 (async () => {
   //test connection

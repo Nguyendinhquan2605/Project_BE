@@ -31,9 +31,14 @@ header.header
               +sub-menu(layout_ProductsCategory,pathProduct)
             li 
               a(href="/cart") Giỏ hàng (#{miniCart ?  miniCart.totalQuantity : "0"})
-            li 
-              button(class="btn btn-login")
-                a(href="/user/login") Đăng nhập
-            li 
-              button(class="btn btn-register")
-                a(href="/user/register") Đăng ký
+            if(user)
+              li 
+                button(class="btn btn-logout")
+                  a(href="/user/logout") Đăng xuất
+            else
+              li 
+                button(class="btn btn-login")
+                  a(href="/user/login") Đăng nhập
+              li 
+                button(class="btn btn-register")
+                  a(href="/user/register") Đăng ký

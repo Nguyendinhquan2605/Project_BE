@@ -161,6 +161,7 @@ body {
 
 /* Button Styles */
 .btn-login,
+.btn-logout,
 .btn-register {
   padding: 8px 16px;
   border-radius: 4px;
@@ -194,6 +195,19 @@ body {
 
 .btn-register:hover {
   background-color: #3a7bc8;
+}
+
+.btn-logout {
+  background-color: transparent;
+  border: 1px solid #4a90e2;
+}
+
+.btn-logout a {
+  color: #4a90e2 !important;
+}
+
+.btn-logout:hover {
+  background-color: #f0f7ff;
 }
 
 /* Cart Item Count Indicator */
