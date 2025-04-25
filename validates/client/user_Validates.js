@@ -51,3 +51,21 @@ module.exports.forgotPassword = (req, res, next) => {
 
   next();
 };
+
+module.exports.resetPassword = (req, res, next) => {
+  // password
+  if (!req.body.newpassword) {
+    req.flash("error", "Vui lòng nhập mật khẩu!");
+    res.redirect("back");
+    return;
+  }
+
+  //confirmPassword
+  if (!req.body.repassword) {
+    req.flash("error", "Vui lòng nhập lại mật khẩu!");
+    res.redirect("back");
+    return;
+  }
+
+  next();
+};

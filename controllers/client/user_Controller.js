@@ -2,6 +2,7 @@ const User = require("../../models/user_model");
 const md5 = require("md5");
 const forgotPass = require("../../models/forgot_password_model");
 const generateHelper = require("../../helper/generate");
+const sendMail_Helper = require("../../helper/sendMail");
 
 //[GET] /user/register
 module.exports.register = (req, res) => {
@@ -114,6 +115,9 @@ module.exports.forgotPasswordPost = async (req, res) => {
   forgotPassword.save();
 
   // Gửi mã OTP  qua email của user
+  const subject = `Mã OTP xác minh lấy lại mật khẩu `;
+  const html = `Mã OTP xác minh lấy lại mật khẩu là <b>${otp}</b> . Lưu ý không được để lộ mã OTP.Thời hạn sử dụng là 3 phút`;
+  sendMail_Helper.sendMail(req.body.email, subject, html);
 
   res.redirect(`/user/password/otp?email=${req.body.email}`);
 };
@@ -154,4 +158,35 @@ module.exports.otpPasswordPost = async (req, res) => {
   res.cookie("tokenUser", user.tokenUser);
 
   res.redirect("/user/password/reset");
+};
+
+//[GET] /user/password/reset
+module.exports.resetPassword = async (req, res) => {
+  res.render("client/page/user/reset-password.pug", {
+    pageTitle: "Cập nhật mật khẩu",
+  });
+};
+
+//[POST] /user/password/reset
+module.exports.resetPasswordPost = async (req, res) => {
+  const tokenUser = req.cookies.tokenUser;
+  const newPassword = req.body.newpassword;
+  const rePassword = req.body.repassword;
+
+  if (newPassword != rePassword) {
+    req.flash("error", "Mật khẩu không trùng khớp!");
+    res.redirect("back");
+    return;
+  }
+
+  await User.updateOne(
+    {
+      tokenUser: tokenUser,
+    },
+    {
+      password: md5(newPassword),
+    }
+  );
+
+  res.redirect("/");
 };
