@@ -190,3 +190,10 @@ module.exports.resetPasswordPost = async (req, res) => {
 
   res.redirect("/");
 };
+
+//[GET] /user/info
+module.exports.info = (req, res) => {
+  res.render("client/page/user/info.pug", {
+    pageTitle: "Trang thông tin cá nhân",
+  });
+};

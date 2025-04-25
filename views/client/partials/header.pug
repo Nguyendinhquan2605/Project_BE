@@ -33,6 +33,9 @@ header.header
               a(href="/cart") Giỏ hàng (#{miniCart ?  miniCart.totalQuantity : "0"})
             if(user)
               li 
+                button(class="btn btn-success")
+                  a(href="/user/info") #{user.fullName}
+              li 
                 button(class="btn btn-logout")
                   a(href="/user/logout") Đăng xuất
             else
