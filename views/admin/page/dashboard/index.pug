@@ -1,8 +1,67 @@
 extends ../../layout/default.pug
 
-block main 
- h1 Trang admin
- div #{user}
- div ----------------------
- div #{role.title}
- div #{role.permissions}
+block main
+  .container-fluid.py-4
+    h1.mb-4 Trang tổng quan
+    
+    // User information section
+    .row.mb-4
+      .col-12
+        .card.bg-light
+          .card-header.bg-light
+            h5.mb-0 Thông tin tài khoản
+          .card-body
+            // User info from your previous code
+            if(user.avatar)
+              img(
+                src=user.avatar
+                style="height: 100px;margin-bottom: 15px;"
+              )
+            if(user.fullName)
+              p Họ tên: <b>#{user.fullName}</b>
+            if(user.email)
+              p Email: <b>#{user.email}</b>
+            if(user.phone)
+              p Số điện thoại: <b>#{user.phone}</b>
+            if(role.title)
+              p Phân quyền: <b>#{role.title}</b>
+    
+    // Stats cards - row 1
+    .row.mb-4
+      .col-md-6.mb-4.mb-md-0
+        .card.bg-light
+          .card-header.bg-light
+            h5.mb-0 Danh mục sản phẩm
+          .card-body
+            p Số lượng: <b>5</b>
+            p Hoạt động: <b>3</b>
+            p Dừng hoạt động: <b>2</b>
+      
+      .col-md-6
+        .card.bg-light
+          .card-header.bg-light
+            h5.mb-0 Sản phẩm
+          .card-body
+            p Số lượng: <b>5</b>
+            p Hoạt động: <b>3</b>
+            p Dừng hoạt động: <b>2</b>
+    
+    // Stats cards - row 2
+    .row
+      .col-md-6.mb-4.mb-md-0
+        .card.bg-light
+          .card-header.bg-light
+            h5.mb-0 Tài khoản admin
+          .card-body
+            p Số lượng: <b>5</b>
+            p Hoạt động: <b>3</b>
+            p Dừng hoạt động: <b>2</b>
+      
+      .col-md-6
+        .card.bg-light
+          .card-header.bg-light
+            h5.mb-0 Tài khoản client
+          .card-body
+            p Số lượng: <b>5</b>
+            p Hoạt động: <b>3</b>
+            p Dừng hoạt động: <b>2</b>
