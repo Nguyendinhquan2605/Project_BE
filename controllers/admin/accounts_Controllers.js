@@ -38,7 +38,7 @@ module.exports.create = async (req, res) => {
 module.exports.createPost = async (req, res) => {
   const permissions = res.locals.role.permissions;
   console.log("Check: ", permissions);
-  if (permissions.include("account_create")) {
+  if (permissions.includes("account_create")) {
     console.log("Có quyền!");
   } else {
     res.send("403");
@@ -93,7 +93,7 @@ module.exports.edit = async (req, res) => {
 module.exports.editPatch = async (req, res) => {
   const permissions = res.locals.role.permissions;
   console.log("Check: ", permissions);
-  if (permissions.include("account_edit")) {
+  if (permissions.includes("account_edit")) {
     console.log("Có quyền!");
   } else {
     res.send("403");
@@ -126,6 +126,15 @@ module.exports.editPatch = async (req, res) => {
 // [DELETE] /admin/roles/delete/:id
 module.exports.deleteAccount = async (req, res) => {
   // console.log(req.params);
+  const permissions = res.locals.role.permissions;
+  console.log("Check: ", permissions);
+  if (permissions.includes("account_delete")) {
+    console.log("Có quyền!");
+  } else {
+    res.send("403");
+    return;
+  }
+
   const id = req.params.id;
 
   await Accounts.updateOne(

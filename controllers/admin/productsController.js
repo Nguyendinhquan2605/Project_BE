@@ -216,6 +216,15 @@ module.exports.changeMulti = async (req, res) => {
 
 // [DELETE] /admin/products/delete/:id
 module.exports.deleteItem = async (req, res) => {
+  const permissions = res.locals.role.permissions;
+  console.log("Check: ", permissions);
+  if (permissions.includes("products_delete")) {
+    console.log("Có quyền!");
+  } else {
+    res.send("403");
+    return;
+  }
+
   console.log(req.params);
   const id = req.params.id;
 
@@ -272,7 +281,7 @@ module.exports.createPosst = async (req, res) => {
   // console.log(req.file);
   const permissions = res.locals.role.permissions;
   console.log("Check: ", permissions);
-  if (permissions.include("products_create")) {
+  if (permissions.includes("products_create")) {
     console.log("Có quyền!");
   } else {
     res.send("403");
@@ -348,7 +357,7 @@ module.exports.editProduct = async (req, res) => {
   // console.log(req.params.id);
   const permissions = res.locals.role.permissions;
   console.log("Check: ", permissions);
-  if (permissions.include("products_edit")) {
+  if (permissions.includes("products_edit")) {
     console.log("Có quyền!");
   } else {
     res.send("403");

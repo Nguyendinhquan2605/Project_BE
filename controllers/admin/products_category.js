@@ -73,7 +73,7 @@ module.exports.createPost = async (req, res) => {
   // console.log(req.body);
   const permissions = res.locals.role.permissions;
   console.log("Check: ", permissions);
-  if (permissions.include("products-category_create")) {
+  if (permissions.includes("products-category_create")) {
     console.log("Có quyền!");
   } else {
     res.send("403");
@@ -141,7 +141,7 @@ module.exports.editProduct_category = async (req, res) => {
   // console.log(req.params.id);
   const permissions = res.locals.role.permissions;
   console.log("Check: ", permissions);
-  if (permissions.include("products-category_edit")) {
+  if (permissions.includes("products-category_edit")) {
     console.log("Có quyền!");
   } else {
     res.send("403");
@@ -189,6 +189,15 @@ module.exports.detail = async (req, res) => {
 module.exports.deleteItem = async (req, res) => {
   console.log(req.params);
   const id = req.params.id;
+
+  const permissions = res.locals.role.permissions;
+  console.log("Check: ", permissions);
+  if (permissions.includes("products-category_delete")) {
+    console.log("Có quyền!");
+  } else {
+    res.send("403");
+    return;
+  }
 
   await ProductsCategory.updateOne(
     { _id: id },

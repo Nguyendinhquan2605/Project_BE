@@ -24,7 +24,7 @@ module.exports.create = async (req, res) => {
 module.exports.createPost = async (req, res) => {
   const permissions = res.locals.role.permissions;
   console.log("Check: ", permissions);
-  if (permissions.include("role_create")) {
+  if (permissions.includes("role_create")) {
     console.log("Có quyền!");
   } else {
     res.send("403");
@@ -56,7 +56,7 @@ module.exports.edit = async (req, res) => {
 module.exports.editPatch = async (req, res) => {
   const permissions = res.locals.role.permissions;
   console.log("Check: ", permissions);
-  if (permissions.include("role_edit")) {
+  if (permissions.includes("role_edit")) {
     console.log("Có quyền!");
   } else {
     res.send("403");
@@ -111,6 +111,15 @@ module.exports.permissionsPatch = async (req, res) => {
 
 // [DELETE] /admin/roles/delete/:id
 module.exports.deleteRole = async (req, res) => {
+  const permissions = res.locals.role.permissions;
+  console.log("Check: ", permissions);
+  if (permissions.includes("role_delete")) {
+    console.log("Có quyền!");
+  } else {
+    res.send("403");
+    return;
+  }
+
   console.log(req.params);
   const id = req.params.id;
 
