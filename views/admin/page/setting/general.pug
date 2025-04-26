@@ -1,0 +1,85 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+
+block main
+  h1 Cài đặt chung
+  +alert-error(5000)
+  +alert-success(5000)
+
+  form(
+    action=`/admin/setting/general?_method=PATCH`
+    method="POST"
+    enctype="multipart/form-data"
+  )
+    div(class="form-group mb-4")
+      label(for="websiteName" class="mb-2") Tên website
+      input(
+        type="text"
+        class="form-control"
+        id="websiteName"
+        name="websiteName"
+        value=setting.websiteName
+      )
+    
+    div(class="form-group mb-4"
+     upload-image
+    )
+      label(for="logo" class="mb-2") Logo
+      input(
+        type="file"
+        class="form-control-file"
+        id="logo"
+        name="logo"
+        accept="image/*"
+        upload-image-input
+      )
+      img(
+        src=setting.logo,
+        class="image-preview"
+        upload-image-preview)
+    
+    div(class="form-group mb-4")
+      label(for="phone" class="mb-2") Số điện thoại
+      input(
+        type="text"
+        class="form-control"
+        id="phone"
+        name="phone"
+        value=setting.phone
+      )
+    
+    div(class="form-group mb-4")
+      label(for="email" class="mb-2") Email
+      input(
+        type="email"
+        class="form-control"
+        id="email"
+        name="email"
+        value=setting.email
+      )
+    
+    div(class="form-group mb-4")
+      label(for="address" class="mb-2") Địa chỉ
+      input(
+        type="text"
+        class="form-control"
+        id="address"
+        name="address"
+        value=setting.address
+      )
+    
+    div(class="form-group mb-4")
+      label(for="copyRight" class="mb-2") Copyright
+      input(
+        type="text"
+        class="form-control"
+        id="copyRight"
+        name="copyRight"
+        value=setting.copyRight
+      )
+    
+    div(class="form-group mt-5")
+      button(
+        type="submit"
+        class="btn btn-primary"
+      ) Cập nhật
