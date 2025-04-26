@@ -3,6 +3,7 @@ const md5 = require("md5");
 const forgotPass = require("../../models/forgot_password_model");
 const generateHelper = require("../../helper/generate");
 const sendMail_Helper = require("../../helper/sendMail");
+const Cart = require("../../models/carts_model");
 
 //[GET] /user/register
 module.exports.register = (req, res) => {
@@ -71,6 +72,10 @@ module.exports.loginPost = async (req, res) => {
   }
 
   res.cookie("tokenUser", user.tokenUser);
+
+  //Lưu user_id vào model cart_model
+
+  await Cart.updateOne({ _id: req.cookies.cartId }, { user_id: user.id });
 
   res.redirect("/");
 };
